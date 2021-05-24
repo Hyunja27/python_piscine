@@ -1,0 +1,66 @@
+<head>
+
+    <title>
+        Input Something! | by spark
+
+    </title>
+    <style>
+        label {
+            color:wheat;
+        }
+
+        h3 {
+            margin-bottom: 20;
+        }
+    </style>
+    <script src="popup.js"></script>
+</head>
+
+<body style="background-color: teal;">
+    <div>
+        <label>Firstname:</label>
+        <input type="text" id="firstname" name="Firstname">
+    </div>
+
+    <div>
+        <label>Name:</label>
+        <input type="text" id="name" name="Name">
+    </div>
+
+    <div>
+        <label>Age:</label>
+        <input type="number" id="age" name="Age">
+    </div>
+
+    <div>
+        <label>Phone:</label>
+        <input type="tel" id="phone" name="Phone">
+    </div>
+
+    <div>
+        <label>Email:</label>
+        <input type="email" id="email" name="Email">
+    </div>
+
+    <div>
+        <label>Student at 42?:</label>
+        <input type="checkbox" id="student" name="Student at 42">
+    </div>
+
+    <div>
+        <label>Gender:</label>
+
+        <input type="radio" id="gender_female" name="gender" value="Female" checked>
+        <label for="gender_female">Female</label>
+
+        <input type="radio" id="gender_male" name="gender" value="Male">
+        <label for="gender_male">Male</label>
+
+        <input type="radio" id="gender_other" name="gender" value="Other">
+        <label for="gender_other">Other</label>
+    </div>
+
+    <div>
+        <button onclick="displayFormContents()">submit!</button>
+    </div>
+</body>
