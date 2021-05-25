@@ -1,1 +1,7 @@
-name = "duoquadragintian"
+name = "sung hyun"
+sur_name = "park"
+page_title = "raw cv! | by spark"
+real_title = "안녕하심꽈 수파쿠입니돠"
+sub_title = "...이래보여도 이력서입니돠.."
+age = "Top secret..."
+profession = "은하수를 여행하는 히치하이커"

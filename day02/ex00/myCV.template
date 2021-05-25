@@ -1,2 +1,72 @@
-<p>"-Who are you?
--A {name}!"</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>
+        {page_title}
+    </title>
+    <style>
+        table{{
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-left: 20px;
+            margin-right: 20px;
+            border: solid;
+            border-collapse: collapse;
+            border-color: wheat;
+        }}
+        h2{{margin-top: 20px;
+            margin-bottom: 50px;
+            margin-left: 20px;
+            margin-right: 20px;
+            color:tomato;}}
+
+        h3{{margin-top: 20px;
+        margin-bottom: 50px;
+        margin-left: 20px;
+        margin-right: 20px;}}
+    </style>
+</head>
+<body style="background-color: teal;">
+    <h1 style="
+        margin-top: 20px;
+        margin-bottom: 30px;
+        margin-left: 20px;
+        margin-right: 20px;
+        color: antiquewhite;">
+        {real_title}</h1>
+    <h2>  {sub_title} </h2>
+    <h3>  ->name : {name} <br> 
+        ->surname : {sur_name} <br>
+        ->age : {age} </h3>
+
+    <table border = 1px>
+        <th>성격</th>
+        <th>skill</th>
+        <th>career</th>
+        <tr>
+            <td>
+                <ul>
+                    <li> 생각보다 내성적입니다.</li>
+                    <li> 발랄해보이지만 뻥입니다.</li>
+                    <li> 하고싶은 건 많은데 노력은 부족합니다.</li>
+                    <li> 애가 좀 솔직합니다. 보시다시피.</li>
+                </ul>
+            </td>
+            <td>
+                <ol>
+                    <li> 심리상담기술</li>
+                    <li> 의류제작기술</li>
+                    <li> spss 통계기술</li>
+                    <li> 교육기획/운영</li>
+                    <li> 아주 작은 프로그래밍기술</li>
+                </ol>
+            </td>
+            <td style="border: solid;border-color: #424242;">
+                <ul> 
+                    {profession}
+                </ul>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
