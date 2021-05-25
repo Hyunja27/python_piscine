@@ -15,7 +15,6 @@
 import random
 from beverages import *
 
-
 class EmptyCup(HotBeverage):
     def __init__(self):
         self.name = "empty cup"
