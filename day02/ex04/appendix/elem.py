@@ -10,7 +10,9 @@ class Elem:
     """
     Elem will permit us to represent our HTML elements.
     """
-    [...]
+    class ElemException(Exception):
+        def __init__():
+            super().__init__("Elem has Exception!")
 
     def __init__(self, tag='div', attr={}, content=None, tag_type='double'):
         self.tag = tag
@@ -19,17 +21,14 @@ class Elem:
         self.tag_type = tag_type
 
     def __str__(self):
-        """
-        The __str__() method will permit us to make a plain HTML representation
-        of our elements.
-        Make sure it renders everything (tag, attributes, embedded
-        elements...).
-        """
+        result = ("<{tag}  {attr}>\n"
+                  "  {content}\n"
+                  "</{tag}>")
         if self.tag_type == 'double':
-            [...]
+            rt = '"' + str(self.content) + '"'
         elif self.tag_type == 'simple':
-            [...]
-        return result
+            rt = '"' + str(self.content) + '"'
+        return result.format(tag=self.tag, attr=self.attr, content=rt)
 
     def __make_attr(self):
         result = ''
@@ -41,12 +40,11 @@ class Elem:
         """
         Here is a method to render the content, including embedded elements.
         """
-
         if len(self.content) == 0:
             return ''
         result = '\n'
         for elem in self.content:
-            result += [...]
+            result += elem.values()
         return result
 
     def add_content(self, content):
@@ -70,4 +68,6 @@ class Elem:
 
 
 if __name__ == '__main__':
-    [...]
+    rt = Elem()
+
+    print(rt)
