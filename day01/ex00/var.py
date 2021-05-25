@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    var.py                                             :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: spark <spark@student.42seoul.kr>           +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/05/25 09:09:18 by spark             #+#    #+#              #
+#    Updated: 2021/05/25 09:09:19 by spark            ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 #!/usr/bin/python3
 
 def main():
@@ -5,8 +17,7 @@ def main():
     print("42 has a type", type("42"))
     print("quarante-deux has a type", type("quarante-deux"))
     print("42.0 has a type", type(42.0))
-    print("42 has a type", type(True))
-    print("True has a type", type(42))
+    print("True has a type", type(True))
     print("[42] has a type", type([42]))
     print("{42: 42} has a type", type({42: 42}))
     print("(42,) has a type", type((42,)))
