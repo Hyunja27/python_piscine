@@ -12,7 +12,6 @@
 #                                                                              #
 # **************************************************************************** #
 
-
 class HotBeverage:
     def __init__(self) -> None:
         self.price = 0.30
@@ -55,7 +54,7 @@ def main():
     a = Tea()
     print(a)
     print("\n\n\n")
-    a = chocolate()
+    a = Chocolate()
     print(a)
     print("\n\n\n")
     a = Cappuccino()

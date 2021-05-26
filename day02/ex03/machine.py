@@ -15,27 +15,20 @@
 import random
 from beverages import *
 
-class EmptyCup(HotBeverage):
-    def __init__(self):
-        self.name = "empty cup"
-        self.price = 0.90
-
-    def description(self):
-        return "An empty cup?! Gimme my money back!"
-
-
 class CoffeeMachine():
     class BrokenMachineException(Exception):
         def __init__(self):
             super().__init__("This coffee machine has to be repaired.")
+    
+    class EmptyCup(HotBeverage):
+        def __init__(self):
+            self.name = "empty cup"
+            self.price = 0.90
+        def description(self):
+            return "An empty cup?! Gimme my money back!"
 
     def __init__(self):
         self.serve_count = 0
-        self.cup = EmptyCup()
-        self.tea = Tea()
-        self.coffee = Coffee()
-        self.cappuccino = Cappuccino()
-        self.chocolate = Chocolate()
 
     def repare(self):
         self.serve_count = 0
@@ -45,7 +38,7 @@ class CoffeeMachine():
             raise CoffeeMachine.BrokenMachineException()
         self.serve_count += 1
         if random.randint(0, 10) > 8:
-            return self.cup
+            return self.EmptyCup()
         return menu()
 
 def main():
