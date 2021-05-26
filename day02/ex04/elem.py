@@ -67,21 +67,9 @@ class Elem:
                                                 for elem in content])))
 
 if __name__ == '__main__':
-    target = Elem('html', content=[Elem('head', content=Elem('title')), Elem('body')])
-
-
-
-
-
-
-
-
-
-
-    # target = Elem('html', content=[
-    #             Elem('head', content=Elem(
-    #                 'title', content=Text('"Hello ground!"'))),
-    #             Elem('body', content=[Elem('h1', content=Text('"Oh no, not again!"')),
-    #                                   Elem('img', {'src': 'http://i.imgur.com/pfp3T.jpg'}, tag_type='simple')])])
-    # print(html)
-
+    target = Elem('html', content=[
+            Elem('head', content=
+            Elem('title', content=
+            Text('"Hello ground!"'))), 
+            Elem('body', content=[Elem('h1', content=Text('"Oh no, not again!"')), Elem('img', {'src':'http://i.imgur.com/pfp3T.jpg'}, tag_type='simple')])])
+    print(target)

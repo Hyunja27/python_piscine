@@ -46,13 +46,13 @@ class CoffeeMachine():
         self.serve_count += 1
         if random.randint(0, 10) > 8:
             return self.cup
-        return menu
+        return menu()
 
 def main():
     machine = CoffeeMachine()
     for _ in range(20):
         try:
-            print(machine.serve(random.choice([Chocolate(), Cappuccino(), Tea(), Coffee()])))
+            print(machine.serve(random.choice([Chocolate, Cappuccino, Tea, Coffee])))
             print("\n=========================  [" + str(machine.serve_count) + "] sold\n")
         except CoffeeMachine.BrokenMachineException as e:
             print("\n\n       [machine broken!! repare!!]       \n\n")
