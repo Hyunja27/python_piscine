@@ -1,5 +1,4 @@
-#!/usr/bin/python3
-
+#!/bin/python3
 
 class Text(str):
     def __str__(self):

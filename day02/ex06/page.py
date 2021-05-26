@@ -15,8 +15,20 @@ class Page:
         return True
 
     def __str__(self):
-        rt = str(Elem(self.elem))
-        return rt
+        rt = str(self.elem)
+        if not isinstance(self.elem, Html):
+             return rt
+        return "<!DOCTYPE html>\n" + rt
+
+    def write_to_file(self, name: str):
+        rt = str(self.elem)
+        fd = open(name, 'w')
+        if not isinstance(self.elem, Html):
+            fd.write("<!DOCTYPE html>\n" + rt)
+        else:
+            fd.write(rt)
+        fd.close()
+
 
     def check_all(self, elem):
         if not isinstance(elem, (Html, Head, Body, Title, Meta, Img, Table, Th,
@@ -96,15 +108,33 @@ class Page:
             for i in elem.content:
                 if isinstance(i, Tr) == False:
                     return True
-        
 
-    def write_to_file(self, name: str):
-        fd = open(str, 'r')
 
+def tester():
+    print("\n====================================\n")
+    print("\n=                                  =\n")
+    print("\n=   Wellcome To Spark's Tester!    =\n")
+    print("\n=                                  =\n")
+    print("\n====================================\n")
+    print("\n   It's For ctl + C / ctl + v     ..\n")
+    print("\n   So, please enter Proper input!   \n")
+    print("\n   (It's Not a minishell..zz)   \n")
+    print("\n====> Enter your Test line!  :)\n")
+    t = ""
+    while t != "exit":
+        t = input()
+        if len(t) < 2:
+            print("Bye!")
+            return
+        p = Page(eval(t))
+        print(p.is_valid)
+        print("\n\n------------------------------------\n")
+        # print("\n\nstd print is =>\n\n", p)
+        print("\n\n------------------------------------\n")
+        print("\n====> Enter your Test line!  :)\n")
 
 def main():
-    p = Page(Html([Head(Title(Ol(Li()))), Body(Table(Li()))]))
-    print(p)
+    tester()
 
 if __name__ == '__main__':
     main()

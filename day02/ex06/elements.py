@@ -93,7 +93,6 @@ class Br(Elem):
     def __init__(self, content=None, attr={}):
         super().__init__(tag='br', attr=attr, content=content, tag_type='simple')
 
-
 # print(Html(Elem()))
 # print("\n")
 # print(Head())
