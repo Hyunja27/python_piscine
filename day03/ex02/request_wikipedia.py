@@ -12,6 +12,7 @@ def request_and_filed(val: str):
         "prop": "wikitext",
         "format": "json",
         "page": val,
+        "redirect": True
     }
     try:
         rt = requests.get("https://en.wikipedia.org/w/api.php", params=params)
