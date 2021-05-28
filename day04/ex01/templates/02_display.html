@@ -1,0 +1,27 @@
+{% extends './base.html' %}
+{% load static %}
+{% block title %}
+    Ex01: Display process of a static page.
+{% endblock %}
+
+{% block style %}
+  <link href="{% static 'style1.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+  <h1> Static web pages are often HTML documents[4] stored as files in the file system and made available by the web server over HTTP (nevertheless URLs ending with ".html" are not always static). However, loose interpretations of the term could include web pages stored in a database, and could even include pages formatted using a template and served through an application server, as long as the page served is unchanging and presented essentially as stored.
+
+Static web pages are suitable for content that never or rarely needs to be updated, though modern web template systems are changing this. Maintaining large numbers of static pages as files can be impractical without automated tools, such as static site generators. Another way to manage static pages is online compiled source code playgrounds, e.g. GatsbyJS and GitHub may be utilized for migrating a WordPress site into static web pages.[5] Any personalization or interactivity has to run client-side, which is restricting.[6]
+
+
+Advantages of a static website
+Provide improved security over dynamic websites (dynamic websites are at risk to web shell attacks if a vulnerability is present)
+Improved performance for end users compared to dynamic websites
+Fewer or no dependencies on systems such as databases or other application servers
+Cost savings from utilizing cloud storage, as opposed to a hosted environment
+Security configurations are easy to setup, which makes it more secure
+Disadvantages of a static website
+Dynamic functionality must be performed on the client side
+
+ </h1>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends './base.html' %}
+{% load static %}
+{% block title %}
+    Ex01: Django, framework web.
+{% endblock %}
+
+{% block style %}
+  <link href="{% static 'style1.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+  <p>Django was created in the fall of 2003, when the <a href="/wiki/Web_programmer" class="mw-redirect" title="Web programmer">web programmers</a> at the <i><a href="/wiki/Lawrence_Journal-World" title="Lawrence Journal-World">Lawrence Journal-World</a></i> newspaper, <a href="/wiki/Adrian_Holovaty" title="Adrian Holovaty">Adrian Holovaty</a> and <a href="/wiki/Simon_Willison" title="Simon Willison">Simon Willison</a>, began using Python to build applications. <a href="/w/index.php?title=Jacob_Kaplan-Moss&amp;action=edit&amp;redlink=1" class="new" title="Jacob Kaplan-Moss (page does not exist)">Jacob Kaplan-Moss</a> was hired early in Django's development shortly before Simon Willison's internship ended.<sup id="cite_ref-19" class="reference"><a href="#cite_note-19">[19]</a></sup> It was released publicly under a <a href="/wiki/BSD_license" class="mw-redirect" title="BSD license">BSD license</a> in July 2005. The framework was named after guitarist <a href="/wiki/Django_Reinhardt" title="Django Reinhardt">Django Reinhardt</a>.<sup id="cite_ref-Django's_History_20-0" class="reference"><a href="#cite_note-Django's_History-20">[20]</a></sup> 
+    Adrian Holovaty is a Romani jazz guitar player and a big fan of Django Reinhardt.
+    </p>
+
+    <p>Despite having its own nomenclature, such as naming the callable objects generating the <a href="/wiki/HTTP" class="mw-redirect" title="HTTP">HTTP</a> responses "views",<sup id="cite_ref-faq-mvc_9-1" class="reference"><a href="#cite_note-faq-mvc-9">[9]</a></sup> the core Django framework can be seen as an <a href="/wiki/Model%E2%80%93view%E2%80%93controller" title="Model–view–controller">MVC</a> architecture.<sup id="cite_ref-djangobook-mvc_10-1" class="reference"><a href="#cite_note-djangobook-mvc-10">[10]</a></sup> It consists of an <a href="/wiki/Object-relational_mapping" class="mw-redirect" title="Object-relational mapping">object-relational mapper</a> (ORM) that mediates between <a href="/wiki/Data_modeling" title="Data modeling">data models</a> (defined as Python classes) and a <a href="/wiki/Relational_database" title="Relational database">relational database</a> ("<b>M</b>odel"), a system for processing HTTP requests with a <a href="/wiki/Web_template_system" title="Web template system">web templating system</a> ("<b>V</b>iew"), and a <a href="/wiki/Regular_expression" title="Regular expression">regular-expression</a>-based <a href="/wiki/Uniform_Resource_Locator" class="mw-redirect" title="Uniform Resource Locator">URL</a> dispatcher ("<b>C</b>ontroller").
+    </p>
+{% endblock %}
