@@ -15,18 +15,21 @@ def road_to_phil(URL: str, prev: str, base: str, count: int, log: list):
 				return print("It's a dead end !")
 		return 
 	all_a = BeautifulSoup(rt.text, 'html.parser')
-	rt = all_a.find(id="mw-content-text").find_all('a')
+	
+	tmp = all_a.find(id="mw-content-text")
+	rt = tmp.select('p > a')
+	
 	log.append(URL)
 	for i in rt:
-		if i.get('href') and i['href'].startswith("/wiki/") and not(i['href'].startswith("/wiki/Help") or
-																i['href'].startswith("/wiki/Wikipedia") or i['href'].startswith("/wiki/File") or
-																i['href'].startswith("/wiki/Category") or i['href'].startswith("/wiki/Template")) and (i.parent.name != 'b' and i.parent.name != 'strong' and i.parent.name != 'i'):
+		if i.get('href') and i['href'].startswith("/wiki/") and not (i['href'].startswith("/wiki/Help") or i['href'].startswith("/wiki/Wikipedia")):
 			url = 'https://en.wikipedia.org{page}'.format(page=i['href'])
 			print(URL[30:])
-			return road_to_phil(url, prev=prev, base=base, count=count + 1, log=log)
+			count += 1
+			if URL[30:] == "Philosophy":
+				return print("{} roads from {} to {} !".format(count, base, URL[30:]))
+			return road_to_phil(url, prev=prev, base=base, count=count, log=log)
 	if len(log) == 1:
 		return print("It's'a dead end !.")
-	return print("{} roads from {} to {}".format(count, base, URL[30:]))
 
 
 def main():
