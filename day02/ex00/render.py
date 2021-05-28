@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/bin/python3
 
 import sys
 import re
@@ -14,7 +14,7 @@ def main():
 		print("wrong filename")
 		return
 	if not os.path.isfile(sys.argv[1]):
-		return print("does not exit file...")
+		return print("does not exist file...")
 	fd = open("myCV.html", 'w')
 	get = open("myCV.template", 'r')
 	fd.write(''.join(get.readlines()).format(name=settings.name, sur_name=settings.sur_name, page_title=settings.page_title, real_title=settings.real_title, sub_title=settings.sub_title, age=settings.age, profession=settings.profession))

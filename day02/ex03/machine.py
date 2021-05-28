@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/bin/python3
 
 import random
 from beverages import *
@@ -31,12 +31,12 @@ class CoffeeMachine():
 
 def main():
     machine = CoffeeMachine()
-    for _ in range(20):
+    for _ in range(22):
         try:
             print(machine.serve(random.choice([Chocolate, Cappuccino, Tea, Coffee])))
             print("\n=========================  [" + str(machine.serve_count) + "] sold\n")
         except CoffeeMachine.BrokenMachineException as e:
-            print("\n\n       [machine broken!! repare!!]       \n\n")
+            print("\n\n       [machine broken!! It need repare!!]       \n\n")
             print(e)
             machine.repare()
 
