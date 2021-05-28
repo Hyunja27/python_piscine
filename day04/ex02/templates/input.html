@@ -1,0 +1,27 @@
+{% extends './base.html' %}
+{% load static %}
+{% block title %}
+    Input | by spark
+{% endblock %}
+
+{% block style %}
+  <link href="{% static 'style.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+	<body>
+
+    <label for="응원의 한마디!">응원의 한마디를 적어주세요!: </label>
+    <input id="your_ms" type="text" name="your_ms" value="{{ current_ms }}">
+    <input type="submit" value="OK">
+
+    {% comment %} <form action="{% url 'ex02:index' %}" method="post">
+      {% csrf_token %}
+      {{ form }}
+      <input id="your_ms" type="text" name="your_ms" value="{{ current_ms }}">
+      <input type="submit" value="OK">
+    </form> {% endcomment %}
+
+
+  </body>
+{% endblock %}
