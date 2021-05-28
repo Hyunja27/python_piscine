@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 GIT_URL="https://github.com/jaraco/path"
 PY="/usr/bin/python3"
