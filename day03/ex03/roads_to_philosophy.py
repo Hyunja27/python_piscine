@@ -3,22 +3,30 @@
 import sys
 import requests
 from bs4 import BeautifulSoup
-from requests.api import get
 
-
-def road_to_phil(URL: str):
-	rt = requests.get(url=URL)
+def road_to_phil(URL: str, prev: str, base: str, count: int, log: list):
+	if URL in log:
+		return print("It leads to an 'infinite loop !")
+	try:
+		rt = requests.get(url=URL)
+		rt.raise_for_status()
+	except requests.HTTPError as e:
+		if rt.status_code == 404:
+				return print("It's a dead end !")
+		return 
 	all_a = BeautifulSoup(rt.text, 'html.parser')
 	rt = all_a.find(id="mw-content-text").find_all('a')
+	log.append(URL)
 	for i in rt:
-		if i.get('href').startwith("/wiki/C"):
-			print(i)
-	# print(rt)
-
-	# val = str(rt[0]).split('"')
-	# print(val[1])
-	# url = 'https://en.wikipedia.org{page}'.format(page=val[1])
-	# road_to_phil(url)
+		if i.get('href') and i['href'].startswith("/wiki/") and not(i['href'].startswith("/wiki/Help") or
+																i['href'].startswith("/wiki/Wikipedia") or i['href'].startswith("/wiki/File") or
+																i['href'].startswith("/wiki/Category") or i['href'].startswith("/wiki/Template")) and (i.parent.name != 'b' and i.parent.name != 'strong' and i.parent.name != 'i'):
+			url = 'https://en.wikipedia.org{page}'.format(page=i['href'])
+			print(URL[30:])
+			return road_to_phil(url, prev=prev, base=base, count=count + 1, log=log)
+	if len(log) == 1:
+		return print("It's'a dead end !.")
+	return print("{} roads from {} to {}".format(count, base, URL[30:]))
 
 
 def main():
@@ -26,7 +34,8 @@ def main():
 		raise Exception("Error : single arg needed")
 	arg = "/wiki/" + sys.argv[1]
 	URL = 'https://en.wikipedia.org{page}'.format(page=arg)
-	road_to_phil(URL)
+	log = []
+	road_to_phil(URL, prev="none", base=sys.argv[1], count=0, log=log)
 
 if __name__ == '__main__':
     main()
