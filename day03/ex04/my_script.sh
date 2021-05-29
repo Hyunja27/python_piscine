@@ -28,5 +28,3 @@ python -m pip --version
 
 pip install --upgrade pip | tee -a $LOG_FILE
 python -m pip install --force-reinstall -r requirement.txt | tee -a $LOG_FILE
-
-
