@@ -12,7 +12,7 @@ def show_message(request):
 		line = fd.readlines(True)
 	except:
 		line = "There are No data!"
-	log = {'log':line}
+	log = {'logs':line}
 	return render(request, "log.html", log)
 
 def show_create_form(request):
@@ -37,7 +37,7 @@ def create_message(request):
 				line = fd.readlines(True)
 			except:
 				line = "There are No data!"
-			log = {'log':line}
+			log = {'logs':line}
 			return render(request, "log.html", log)
 	render(request, "thanks.html")
 	form = forms.MsForm()
