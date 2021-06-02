@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UFT-8" />
+  {% block title%}{% endblock %} {% block style%} {% endblock %}
+  <script src="{% static 'keyevent.js' %}"></script>
+  <style>
+    @font-face {
+      font-family: 'PK';
+      font-style: normal;
+      src: url('../static/fonts/PKMN_RBYGSC.ttf') format("truetype");
+    }
+    .container {
+      background-image: url("https://mario.wiki.gallery/images/1/1f/GBA_Handheld.png?download");
+      background-size: 1600px 1000px;
+      background-repeat: no-repeat;
+      width: 1600px;
+      height: 1000px;
+    }
+    .smallcon1{
+      background-image: url("https://postfiles.pstatic.net/MjAyMTA2MDFfMjg5/MDAxNjIyNDg1NjY4ODIy.dM8i0nVobnM2FZHyzKN3xRGtAj6kTRcHmSUu9z1125Ug.9BMoVfIDUMnxNXrI2txrOzr2Ks_oCMz4yQqr4gQAcL4g.PNG.123gk/Screen_Shot_2021-06-01_at_3.27.12_AM.png?type=w580");
+      width: 687px; height: 490px; position: absolute; top:190px; left:450px;
+    }
+    h1,h2,h3,h4,h5,p,table{
+      font-family: 'PK';
+    }
+    .load_slot{
+      border:5px solid; border-color:black; border-collapse : collapse; padding: 10px; margin: 0;
+      width: 180px; height: 50px;
+      text-align: center;
+      background-color: #FF1493;
+    }
+    .load_name{
+      border:5px solid; border-color:black; border-collapse : collapse; padding: 10px; margin: 0;
+      width: 180px; height:220px;
+      text-align: center;
+      background-color: #dcdcdc;
+    }
+    .save_slot{
+      border:5px solid; border-color:black; border-collapse : collapse; padding: 10px; margin: 0;
+      width: 180px; height: 50px;
+      text-align: center;
+      background-color: #4682B4;
+    } 
+    .save_name{
+      border:5px solid; border-color:black; border-collapse : collapse; padding: 10px; margin: 0;
+      width: 180px; height: 220px;
+      text-align: center;
+      background-color: #dcdcdc;
+    }
+
+  </style>
+</head>
+
+
+<body class="container">
+  {% include 'key.html' %}
+  <div style="width: 687px; height: 490px; position: absolute; top:190px; left:450px; background-color: rgb(172, 166, 166);">
+    {% block content%}
+    {% endblock %}
+  </div>
+</body>
+</html>

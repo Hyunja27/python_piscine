@@ -1,0 +1,100 @@
+{% extends 'base.html' %} {% load static %}
+{% block title %}<title>Save</title>{% endblock title%}
+{% block content %}
+
+<table style="margin:auto; border-collapse:collapse;">
+    <tr>
+    <h3 style="padding: 30px; margin: 0;">Save MovieMon!</h3>
+    </tr>
+    <tr>
+    <tr>
+        <td class=save_slot style="background-color: 0;"><h2>[slot A]</h2></td>
+        <td class=save_slot style="background-color: 0;"><h2>[slot B]</h2></td>
+        <td class=save_slot style="background-color: 0;;"><h2>[slot C]</h2></td>
+    </tr>
+    <tr>
+        <td class=save_name style="background-color:{{ A }};"><h2>
+            {% if save_A == "x" %}
+                Free !
+            {% else %}
+                <h3>[Save]<br><br>catch : {{save_A}}/15</h3>
+            {% endif%}
+        </h2></td>
+        <td class=save_name style="background-color:{{ B }};"><h2>
+            {% if save_B == "x" %}
+                Free !
+            {% else %}
+                <h3>[Save]<br><br>catch : {{save_B}}/15</h3>
+            {% endif%}
+        </h2></td>
+        <td class=save_name style="background-color:{{ C }};"><h2>
+            {% if save_C == "x" %}
+                Free !
+            {% else %}
+                <h3>[Save]<br><br>catch : {{save_C}}/15</h3>
+            {% endif%}
+        </h2></td>
+    </tr>
+    <tr>
+        <td class><h4>[A]&nbsp&nbsp:&nbsp&nbspSave&nbsp&nbsp   <br>[B]&nbsp&nbsp:&nbsp&nbspCancle</h4></td>
+    </tr>
+</table>
+
+{% endblock content%}
+
+{% comment %} {% if saveed == 0%}
+        <h3 style="padding: 3px; margin: 0;">A_Load B_Cancel</h3>
+{% else %}
+    <h3 style="padding: 100px; margin: 0;">A_Start Game B_Cancel</h3>
+{% endif %} {% endcomment %}
+{% comment %} 
+{% endblock content%}
+{{ch_b}}{% extends 'base.html' %} {% save static %}
+{% block title %}<title>Save</title>{% endblock title%}
+{% block content %}
+<table style="width: 687px; height: 490px;">
+    <tr>
+    <h3 style="padding: 3px; margin: 0;">Save the Game!</h3>
+    </tr>
+    <tr>
+        <td style="padding: 0; border-bottom: {{ch_a}} solid rgb(53, 49, 49);">
+            {% if slot1 == 0 %}
+                <h1 style="margin: 0; text-align: center;">=A slot= <br>  Free !</h1>
+            {% else %}
+                <h1 style="margin: 0; text-align: center;">=A slot= <br>  Using..{{slot1}}/10 !</h1>
+            {% endif%}
+        </td>
+        <td style="width: 70px; border-bottom: 1px;">
+        </td>
+    </tr>
+    <tr>
+        <td style="padding: 0; border-bottom: {{ch_b}} solid rgb(53, 49, 49);">
+            {% if slot2 == 0 %}
+                <h1 style="margin: 0; text-align: center;">=B slot= <br>  Free !</h1>
+            {% else %}
+                <h1 style="margin: 0; text-align: center;">=B slot= <br>  Using..{{slot2}}/10 !</h1>
+            {% endif%}
+        </td>
+        <td style="width: 70px; border-bottom: 1px;">
+        </td>
+    </tr>
+    <tr>
+        <td style="border-bottom: {{ch_c}} solid rgb(53, 49, 49);">
+            {% if slot3 == 0 %}
+                <h1 style="margin: 0; text-align: center;">=C slot= <br>  Free !</h1>
+            {% else %}
+                <h1 style="margin: 0; text-align: center;">=C slot= <br>  Using..{{slot3}}/10 !</h1>
+            {% endif%}
+        </td>
+        <td style="border-bottom: 1px;">
+        </td>
+    </tr>
+    <tr>    
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td style="padding: 0; margin: 0;"></td>
+    </tr>
+</table>
+{% endblock content%} {% endcomment %}

@@ -1,0 +1,25 @@
+{% load static %}
+
+{% block style%}
+<style>
+    a {
+        display: block;
+        /* background-color: crimson; */
+        position: absolute;
+        width: 110px;
+        height: 110px;
+    }
+</style>
+{% endblock %}
+{% block from %}
+{% csrf_token %}
+{{ form.as_p }}
+ <a id="up" style=" top: 250px; left: 147px;" href="{{ request.path }}?key=up"></a>
+ <a id="left" style=" top: 340px; left: 58px;" href="{{ request.path }}?key=left"></a>
+ <a id="right" style=" top: 340px; left: 235px;" href="{{ request.path }}?key=right"></a>
+ <a id="down" style=" top: 430px; left: 147px;" href="{{ request.path }}?key=down"></a>
+ <a id="A" style=" top: 306px; left: 1360px; width:160px; height:160px" href="{{ request.path }}?key=A"></a>
+ <a id="B" style=" top: 376px; left: 1190px; width:160px; height:160px" href="{{ request.path }}?key=B"></a>
+ <a id="Start" style=" top: 570px; left: 260px; width:100px; height:100px" href="{{ request.path }}?key=Start"></a>
+ <a id="Select" style=" top: 680px; left: 250px; width:100px; height:100px" href="{{ request.path }}?key=Select"></a>
+{% endblock %}

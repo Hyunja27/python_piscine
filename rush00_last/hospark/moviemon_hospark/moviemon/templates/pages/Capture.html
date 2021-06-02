@@ -1,0 +1,14 @@
+{% extends 'base.html' %} {% load static %}
+{% block title %}<title>Capture</title>{% endblock title%}
+ {% block content %}
+    <p style="padding: 140px; solid rgb(53, 49, 49);">
+        {% if Power is 0 %}
+            <h1 style="margin: 0; text-align: center;">We Got him!<br> Hmm....Let's See..{{Power}} ..!! </h1>
+        {% else %}
+            <h1 style="margin: 0; text-align: center;">We Got him!<br>Oh! He's Power is <br>{{Power}}.....!! </h1>
+        {% endif %}
+    </p>
+    <p style="padding: 0px; border-bottom: {{ch_a}} solid rgb(53, 49, 49);">
+        <h3 style="margin: 0; text-align: center;">Press =B= Button </h3>
+    </p>
+{% endblock content%}

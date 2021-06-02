@@ -1,0 +1,41 @@
+{% extends 'base.html' %}  {% load static %} {% block style%}
+    <style>
+    table {
+        position : absolute;
+        top:0px;
+        left:0px;
+        border: #707070 1px;
+        width: 500px;
+        height: 490px;
+    }
+    tr, td {
+        border: #707070 1px  dashed;
+        width: 10px;
+        height: 10px;
+    }
+    img {
+         position=absolute;
+         top:100px;
+         flaot : right;
+         height: 40px;
+    }
+    </style>
+    {% endblock %} 
+    {% block title %}<title>Worldmap</title>{% endblock title%} 
+    {% block content %}
+   <table>
+    {% for j in ten %}
+        <tr>
+        {% for i in ten %}
+            {% if cur_x == i and cur_y == j %}
+                <td style="width: 10px;height: 10px; background-color: black"></td>	
+            {% else %}
+                <td style="width: 10px;height: 10px;"></td>
+            {% endif %}
+        {% endfor %}
+        </tr>
+    {% endfor %}
+    </table>
+    <p align="right"><font size="6"><img width="70" height="60" src="https://postfiles.pstatic.net/MjAyMTA2MDFfMjUy/MDAxNjIyNTA0MjY3OTk3.pEomMdZpGsCGNM107qVzf2G7kWiZCJeqBvadwsq5Lucg.rjWgF3jcNTRm6BYdX_BZ8JUpLAb2urXZsNO3u13qOXEg.PNG.123gk/noun_Monster_ball_1455778_(1).png?type=w580"/>{{ballnum}}</font></p>
+
+    {% endblock content%}

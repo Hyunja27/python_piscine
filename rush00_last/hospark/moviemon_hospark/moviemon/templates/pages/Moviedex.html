@@ -1,0 +1,31 @@
+{% extends 'base.html' %} {% load static %}
+{% block title %}<title>Moviedex</title>{% endblock title%}
+{% block content %}
+<style>
+    img {
+         position=absolute;
+         top:100px;
+         flaot : right;
+         height: 100px;
+    }
+</style>
+<p style="width:3000px;height: 5px;">&nbsp&nbsp[left]&nbsp&nbsp{{index}} / {{total}}&nbsp&nbsp[right]&nbsp&nbsp</p>
+<table>
+<tr>
+    {% if not movie.prev.Poster%}
+	<td><p style="position=absolute; top:0px; width:200px;height: 300px;"></p></td>
+    {% else %}
+	<td><img src="{{movie.prev.Poster}}" style="position=absolute; top:0px; width:200px;height: 300px;"></img></td>
+    {% endif%}
+	<td><img src="{{movie.now.Poster}}" style="position=absolute; top:0px; width:250px;height: 320px; border:10px solid; border-color:blue"></img></td>
+    {% if not movie.prev.Poster%}
+	<td><p style="position=absolute; top:0px; width:200px;height: 300px;"></p></td>
+    {% else %}
+	<td><img src="{{movie.next.Poster}}" style="position=absolute; top:0px; width:200px;height: 300px;"></img></td>
+<tr>
+    {% endif%}
+</table>
+	<h3>&nbsp&nbsp[A]&nbsp:&nbsp MORE INFORMATION</h3>
+	<h3>&nbsp&nbsp[SELECT]&nbsp :&nbsp BACK&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</h3>
+
+{% endblock content%}

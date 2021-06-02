@@ -1,0 +1,32 @@
+{% extends 'base.html' %} {% load static %}
+{% block title %}<title>Battle</title>{% endblock title%}
+{% block content %}
+    <p style="padding: 0px; solid rgb(53, 49, 49);">
+        <h2 style="margin: 0; text-align: center;">Moviemon <br> {{mon_id}} <br>appear !<br></h2>
+    </p>
+     <p align="right"><font size="6"><img style="float: right;" width="40" height="35" src="https://postfiles.pstatic.net/MjAyMTA2MDFfMTg3/MDAxNjIyNTExNDA1ODM1.3xQ7fWyEoJy3HzWDq_qusuuO4_i154bV5SzVRERi5iog.jdZ8iL_QN7te4RQmzqTjXNbZBn3oV_o2zMP6x2RNfFIg.PNG.123gk/noun_Percent_3012444_(1).png?type=w580"/>{{winnig}}</font></p>
+     <p align="right"><font size="6"><img style="float: right;" width="40" height="35" src="https://postfiles.pstatic.net/MjAyMTA2MDFfNTYg/MDAxNjIyNTExMjE2NDAx.BGzaN6a0gRHyjHutvvwN-LRKT6OHrr-HOLWH_rdUjSEg.bMiStPQ_uXw_WVK8LPIzC9-BZSwpaqV8nDjkDmYaVy8g.PNG.123gk/noun_strength_4754_(1).png?type=w580"/>{{strength}}</font></p>
+     <p align="right"><font size="5"><font size="6"><img style="float: right;" width="40" height="35" src="https://postfiles.pstatic.net/MjAyMTA2MDFfMjUy/MDAxNjIyNTA0MjY3OTk3.pEomMdZpGsCGNM107qVzf2G7kWiZCJeqBvadwsq5Lucg.rjWgF3jcNTRm6BYdX_BZ8JUpLAb2urXZsNO3u13qOXEg.PNG.123gk/noun_Monster_ball_1455778_(1).png?type=w580"/>{{ballnum}} </font></p>
+    
+    <img src="{{poster}}" style="object-fit: cover; position:absolute; top:130px; left:270px; height: 40%;">
+    <p style="position:absolute; top:250px; left:410px; font-size:14px; padding:0; border:0; margin: 0;">hmm..! maybe..<br><br>{{rating}}..?</p>
+    <p style="position:absolute; top:180px; left:180px; font-size:10px; padding:0; border:0; margin: 0;">Grrrr......!</p>
+    <table style="width: 687px; height: 210px;">
+    <tr></tr>
+    <tr></tr>
+    <tr>
+    </tr>
+    <tr></tr>
+    <tr></tr>
+    <tr></tr>
+    <tr>
+        <td style="padding: 1px; border-bottom: {{ch_a}} solid rgb(53, 49, 49);">
+            <h4 style=" border-Top: {{ch_a}} solid rgb(53, 49, 49); margin-top: 0px; text-align: center;">=A= <br> <br>Throw ball!<br>{{runch}}</h4>
+        </td>
+        <td style="padding: 1px; border-bottom: {{ch_b}} solid rgb(53, 49, 49);">
+            <h4 style=" border-Top: {{ch_b}} solid rgb(53, 49, 49); margin-top: 0px; text-align: center; ">=B= <br> {{missed}} <br> Flee away !"</h4>
+        </td>
+    </tr>
+
+</table>
+{% endblock content%}

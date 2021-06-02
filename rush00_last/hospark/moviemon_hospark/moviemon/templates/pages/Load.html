@@ -1,0 +1,49 @@
+{% extends 'base.html' %} {% load static %}
+{% block title %}<title>Load</title>{% endblock title%}
+{% block content %}
+
+<table style="margin:auto; border-collapse:collapse;">
+    <tr>
+    <h3 style="padding: 30px; margin: 0;">Load MovieMon!</h3>
+    </tr>
+    <tr>
+    <tr>
+        <td class=load_slot style="background-color: 0;"><h2>[slot A]</h2></td>
+        <td class=load_slot style="background-color: 0;"><h2>[slot B]</h2></td>
+        <td class=load_slot style="background-color: 0;"><h2>[slot C]</h2></td>
+    </tr>
+    <tr>
+        <td class=load_name style="background-color:{{ A }};"><h2>
+            {% if load_A == "x" %}
+                Free !
+            {% else %}
+                <h3>[Save]<br><br>catch : {{load_A}}/15</h3>
+            {% endif%}
+        </h2></td>
+        <td class=load_name style="background-color:{{ B }};"><h2>
+            {% if load_B == "x" %}
+                Free !
+            {% else %}
+                <h3>[Save]<br><br>catch : {{load_B}}/15</h3>
+            {% endif%}
+        </h2></td>
+        <td class=load_name style="background-color:{{ C }};"><h2>
+            {% if load_C == "x" %}
+                Free !
+            {% else %}
+                <h3>[Save]<br><br>catch : {{load_C}}/15</h3>
+            {% endif%}
+        </h2></td>
+    </tr>
+    <tr>
+        <td class><h4>
+            {% if load == "load" %}
+                [A]&nbsp&nbsp:&nbsp&nbspStart<br>[B]&nbsp&nbsp:&nbsp&nbspCancle
+            {% else %}
+                [A]&nbsp&nbsp:&nbsp&nbspLoad<br>[B]&nbsp&nbsp:&nbsp&nbspCancle
+            {% endif%}
+    </tr>
+
+</table>
+{% endblock content%}
+{{ch_b}}
