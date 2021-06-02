@@ -16,13 +16,15 @@ def init(request: HttpRequest):
             port=settings.DATABASES['default']['PORT'],
         )
         SQL_QUERY = """
-        CREATE TABLE ex04_movies(
+        CREATE TABLE ex06_movies(
             title VARCHAR(64) UNIQUE NOT NULL,
             episode_nb INTEGER PRIMARY KEY,
             opening_crawl TEXT,
             producer VARCHAR(128) NOT NULL,
             director VARCHAR(32) NOT NULL,
             release_date DATE NOT NULL
+            created DATE NOT NULL
+            updated DATE NOT NULL
         );
         COMMIT;
         """
@@ -97,7 +99,7 @@ def populate(request):
             port=settings.DATABASES['default']['PORT'],
         )
         SQL_QUERY = """
-        INSERT INTO ex04_movies(
+        INSERT INTO ex06_movies(
             episode_nb, 
             title, 
             director, 
@@ -135,7 +137,7 @@ def display(request):
             port=settings.DATABASES['default']['PORT'],
         )
         SQL_QUERY = """
-        SELECT * FROM ex04_movies;
+        SELECT * FROM ex06_movies;
         """
         with conn.cursor() as curs:
             curs.execute(SQL_QUERY)
@@ -144,43 +146,5 @@ def display(request):
         return HttpResponse(e)
     return render(request, 'base_04.html', {'movies': tuple_list})
 
-
-class EraseForm(forms.Form):
-    titles = forms.ChoiceField(choices=(), required=True)
-
-    def __init__(self, choices=(), *args, **kwargs):
-        super(EraseForm, self).__init__(*args, **kwargs)
-        self.fields['titles'].choices = choices
-
-
-def remove(request: HttpRequest):
-    try:
-        conn = psycopg2.connect(
-            dbname=settings.DATABASES['default']['NAME'],
-            user=settings.DATABASES['default']['USER'],
-            password=settings.DATABASES['default']['PASSWORD'],
-            host=settings.DATABASES['default']['HOST'],
-            port=settings.DATABASES['default']['PORT'],
-        )
-        SQL_QUERY = """
-        SELECT * FROM ex04_movies;
-        """
-        curs = conn.cursor()
-        curs.execute(SQL_QUERY)
-        movies = curs.fetchall()
-        choices = ((movie[1], movie[0]) for movie in movies)
-        if request.method == 'POST':
-            data = EraseForm(choices, request.POST)
-            if data.is_valid():
-                SQL_QUERY = """
-                DELETE FROM ex04_movies WHERE episode_nb = %s;
-                """
-                curs.execute(SQL_QUERY, [data.cleaned_data['titles']])
-                conn.commit()
-            curs.close()
-            return redirect(request.path)
-        curs.close()
-        return render(request, 'remove_04.html', {'choice_field': EraseForm(choices)})
-    except Exception as e:
-        print(e)
-        return HttpResponse("No data available")
+def update(request):
+    print("Hell0!")

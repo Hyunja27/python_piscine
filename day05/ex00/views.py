@@ -28,7 +28,7 @@ def init(request: HttpRequest):
         with conn.cursor() as curs:
             curs.execute(SQL_QUERY)
     except Exception as e:
-        return HttpResponse(e)
+        return HttpResponse("Data already handled") 
     return HttpResponse("OK")
 
 

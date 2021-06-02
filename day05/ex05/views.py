@@ -1,14 +1,13 @@
 from django.http.response import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Movies
 from collections import defaultdict
 from django.conf import settings
 from django.http import HttpRequest, HttpResponse
 import psycopg2
-
+from django import forms
 
 # Create your views here.
-
 
 def populate(request):
     movie_list = [
@@ -78,9 +77,33 @@ def populate(request):
     return HttpResponse("<br />".join([str(i) for i in result]))
 
 
+class EraseForm(forms.Form):
+    titles = forms.ChoiceField(choices=(), required=True)
+
+    def __init__(self, choices=(), *args, **kwargs):
+        super(EraseForm, self).__init__(*args, **kwargs)
+        self.fields['titles'].choices = choices
+
+
+def remove(request: HttpRequest):
+    movie_list = Movies.objects.all()
+    choices = ((movie.title, movie.title) for movie in movie_list)
+    if request.method == 'POST':
+        data = EraseForm(choices, request.POST)
+        if data.is_valid():
+            try:
+                Movies.objects.get(
+                    title=data.cleaned_data['titles']).delete()
+                return redirect(request.path)
+            except Exception as e:
+                    print(e)
+                    return HttpResponse("No data available")
+    return render(request, 'remove_04.html', {'choice_field': EraseForm(choices)})
+
+
 def display(request):
     try:
         tmp = Movies.objects.all()
     except Exception as e:
-        return HttpResponse("No data available") 
-    return render(request, 'base2.html', {'movies': tmp })
+        return HttpResponse("No data available")
+    return render(request, 'base2.html', {'movies': tmp})

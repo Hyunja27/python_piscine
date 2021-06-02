@@ -28,7 +28,7 @@ def init(request: HttpRequest):
         with conn.cursor() as curs:
             curs.execute(SQL_QUERY)
     except Exception as e:
-        return HttpResponse(e)
+        return HttpResponse("Data already handled")  
     return HttpResponse("OK")
 
 
@@ -112,7 +112,7 @@ def populate(request):
                 except psycopg2.DatabaseError as e:
                     conn.rollback()
     except Exception as e:
-        return HttpResponse(e)
+        return HttpResponse("No data available") 
     return HttpResponse("OK")
 
 
@@ -131,6 +131,6 @@ def display(request):
         with conn.cursor() as curs:
             curs.execute(SQL_QUERY)
             tuple_list = curs.fetchall()
-    except Exception("No data available") as e:
-        return HttpResponse(e)
-    return render(request, 'base1.html', { 'movies' : tuple_list})
+    except Exception as e:
+        return HttpResponse("No data available") 
+    return render(request, 'base_02.html', { 'movies' : tuple_list})
