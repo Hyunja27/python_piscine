@@ -26,9 +26,11 @@ def init(request: HttpRequest):
         );
         COMMIT;
         """
-
-        with conn.cursor() as curs:
-            curs.execute(SQL_QUERY)
+        try:
+            with conn.cursor() as curs:
+                curs.execute(SQL_QUERY)
+        except psycopg2.DatabaseError:
+            conn.rollback()
     except Exception as e:
         return HttpResponse(e)
     return HttpResponse("OK")
