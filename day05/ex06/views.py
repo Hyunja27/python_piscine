@@ -98,6 +98,7 @@ def populate(request):
         }
     ]
     try:
+        result = []
         conn = psycopg2.connect(
             dbname=settings.DATABASES['default']['NAME'],
             user=settings.DATABASES['default']['USER'],
@@ -126,12 +127,13 @@ def populate(request):
                         movie['director'],
                         movie['producer'],
                         movie['release_date']])
+                    result.append("OK")
                     conn.commit()
                 except psycopg2.DatabaseError:
                     conn.rollback()                                   
     except Exception as e:
         return HttpResponse("No data available") 
-    return HttpResponse("OK")
+    return HttpResponse("<br />".join([str(i) for i in result]))
 
 
 def display(request):
