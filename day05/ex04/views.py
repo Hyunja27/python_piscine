@@ -107,16 +107,19 @@ def populate(request):
         VALUES(
             %s, %s, %s, %s, %s
         );
-        COMMIT
         """
         with conn.cursor() as curs:
             for movie in movies:
-                curs.execute(SQL_QUERY, [
-                    movie['episode_nb'],
-                    movie['title'],
-                    movie['director'],
-                    movie['producer'],
-                    movie['release_date']])
+                try:
+                    curs.execute(SQL_QUERY, [
+                        movie['episode_nb'],
+                        movie['title'],
+                        movie['director'],
+                        movie['producer'],
+                        movie['release_date']])
+                    conn.commit()
+                except psycopg2.DatabaseError:
+                    conn.rollback()                                   
     except Exception as e:
         return HttpResponse(e)
     return HttpResponse("OK")
