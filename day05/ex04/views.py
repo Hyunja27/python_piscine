@@ -140,8 +140,8 @@ def display(request):
         with conn.cursor() as curs:
             curs.execute(SQL_QUERY)
             tuple_list = curs.fetchall()
-    except Exception("No data available") as e:
-        return HttpResponse(e)
+    except Exception as e:
+        return HttpResponse("No data available")
     return render(request, 'base_04.html', {'movies': tuple_list})
 
 

@@ -22,17 +22,24 @@ def init(request: HttpRequest):
             opening_crawl TEXT,
             producer VARCHAR(128) NOT NULL,
             director VARCHAR(32) NOT NULL,
-            release_date DATE NOT NULL
-            created DATE NOT NULL
-            updated DATE NOT NULL
+            release_date DATE NOT NULL,
+            created TIMESTAMP NOT NULL DEFAULT NOW(),
+            updated TIMESTAMP NOT NULL DEFAULT NOW()
         );
-        COMMIT;
+        CREATE OR REPLACE FUNCTION update_changetimestamp_column()
+        RETURNS TRIGGER AS $$
+        BEGIN
+        NEW.updated = now(); NEW.created = OLD.created;
+        RETURN NEW;
+        END;
+        $$ language 'plpgsql';
+        CREATE TRIGGER update_films_changetimestamp BEFORE UPDATE
+        ON ex06_movies FOR EACH ROW EXECUTE PROCEDURE 
+        update_changetimestamp_column();
         """
-        try:
-            with conn.cursor() as curs:
-                curs.execute(SQL_QUERY)
-        except psycopg2.DatabaseError:
-            conn.rollback()
+        with conn.cursor() as curs:
+            curs.execute(SQL_QUERY)
+        conn.commit()
     except Exception as e:
         return HttpResponse(e)
     return HttpResponse("OK")
@@ -142,9 +149,45 @@ def display(request):
         with conn.cursor() as curs:
             curs.execute(SQL_QUERY)
             tuple_list = curs.fetchall()
-    except Exception("No data available") as e:
-        return HttpResponse(e)
-    return render(request, 'base_04.html', {'movies': tuple_list})
+    except Exception as e:
+        return HttpResponse("No data available") 
+    return render(request, 'base_06.html', {'movies': tuple_list})
 
-def update(request):
-    print("Hell0!")
+class TextChoose(forms.Form):
+    update = forms.CharField(required=True)
+    titles = forms.ChoiceField(choices=(), required=True)
+    def __init__(self, choices=(), *args, **kwargs):
+        super(TextChoose, self).__init__(*args, **kwargs)
+        self.fields['titles'].choices = choices
+
+def update(request: HttpRequest):
+    try:
+        conn = psycopg2.connect(
+            dbname=settings.DATABASES['default']['NAME'],
+            user=settings.DATABASES['default']['USER'],
+            password=settings.DATABASES['default']['PASSWORD'],
+            host=settings.DATABASES['default']['HOST'],
+            port=settings.DATABASES['default']['PORT'],
+        )
+        SQL_QUERY = """
+        SELECT * FROM ex06_movies;
+        """
+        curs = conn.cursor()
+        curs.execute(SQL_QUERY)
+        movies = curs.fetchall()
+        choices = ((movie[0], movie[0]) for movie in movies)
+        if request.method == 'POST':
+            data = TextChoose(choices, request.POST)
+            if data.is_valid():
+                SQL_QUERY = """
+                UPDATE ex06_movies SET opening_crawl = %s WHERE title = %s;
+                """
+                curs.execute(SQL_QUERY, [data.cleaned_data['update'], data.cleaned_data['titles']])
+                conn.commit()
+            curs.close()
+            return redirect(request.path)
+        curs.close()
+        return render(request, 'remove_05.html', {'choice_field': TextChoose(choices)})
+    except Exception as e:
+        print(e)
+        return HttpResponse("No data available")

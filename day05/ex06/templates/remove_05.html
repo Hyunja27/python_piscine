@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Remove</title>
+  <style>
+    @font-face {
+      font-family: 'PK';
+      font-style: normal;
+      src: url('../static/fonts/PKMN_RBYGSC.ttf') format("truetype");
+    }
+    * {
+      font-family: 'PK';
+      padding: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div style="background-color: rgba(175, 182, 37, 0.824)">
+    <form action="{{request.path}}" method="post">
+      {% csrf_token %} {{choice_field.as_table}}
+      <input type="submit" value="update"/>
+    </form>
+  </div>
+</body>
+
+</html>
