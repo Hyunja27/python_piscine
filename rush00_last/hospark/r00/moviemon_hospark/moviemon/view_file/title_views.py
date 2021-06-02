@@ -26,7 +26,7 @@ def press_A(request):
     print("\n\n\n\n\n\n  == gettering Many Movies...... Wait Some Seconds..  ==\n\n\n\n\n\n")
     save_data(G_Data.load_default_settings().dump())
     g = G_Data.load(load_data())
-    print(g)
+    # print(g)
     for index, (key, elem) in enumerate(g.moviemon.items()):
         basic_data.TOTAL_MON_LIST.append({key : elem})
         # rr = key
@@ -37,6 +37,7 @@ def press_A(request):
         if pick not in tmp:
             tmp.append(pick)
             basic_data.IN_GAME_MON_LIST.append(basic_data.TOTAL_MON_LIST[pick])
+        
     g.total_moviemon = basic_data.TOTAL_MON_LIST
     g.left_moviemon = basic_data.IN_GAME_MON_LIST
     g.captured_list = []

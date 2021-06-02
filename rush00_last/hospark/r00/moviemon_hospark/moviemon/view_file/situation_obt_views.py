@@ -7,16 +7,17 @@ from ..settings import basic_data
 import random
 # Create your views here.
 
-player_pos = {
-    'x': 5,
-    'y': 5
-}
-
 situation = {
-    'battle': 0,
+    'cap': 0,
     'getball': 0,
+    'encount': 0,
+    'recap':0
 }
 
+situationmanu = {
+    'a': 0,
+    'b': 0
+}
 
 X_MAX = 9
 Y_MAX = 9
@@ -27,7 +28,8 @@ def get_one_mon():
     return pick
 
 def toss_coin():
-    return random.randint(0,1)
+    return random.randint(0, 1)
+
 
 def encounter_something(request):
     situation['getball'] = 1
@@ -35,118 +37,91 @@ def encounter_something(request):
     if toss_coin():
         if toss_coin():
             if toss_coin() and g.movieballCount < 42:
-                if toss_coin(): ball_amount = 2
-                else: ball_amount = 1
+                if toss_coin():
+                    ball_amount = 2
+                else:
+                    ball_amount = 1
                 g.movieballCount += ball_amount
                 save_data(g.dump())
-                try :
-                    return redirect('situation_obt')
-                except :
-                    raise Http404("redirect error")
-        elif toss_coin():   
-            save_data(g.dump())
-            # pick = get_one_mon()
-            # id = list(g.left_moviemon[pick])[0]
-            try :
-                return redirect('situation_enc')
-            except :
-                raise Http404("redirect error")
-            # return redirect('battle/' + id)
-    try :
-        return redirect(request.path)
-    except :
-        raise Http404("redirect error")
+                return request('situation')
+    return redirect(request.path)
 
 
 def press_up(request):
-    if (situation['battle'] != 1 and situation['battle'] != 1):
-        g = G_Data.load(load_data())
-        if (g.py > 0):
-            g.py -= 1
-        if len(g.left_moviemon) > 0:
-            save_data(g.dump())
-            return encounter_something(request)
-        save_data(g.dump())
-        try :
-            return redirect(request.path)
-        except :
-            raise Http404("redirect error")
+    g = G_Data.load(load_data())
+    save_data(g.dump())
+    return redirect(request.path)
 
 
 def press_left(request):
-    if (situation['battle'] != 1 and situation['battle'] != 1):
-        g = G_Data.load(load_data())
-        if (g.px > 0):
-            g.px -= 1
-        if len(g.left_moviemon) > 0:
-            save_data(g.dump())
-            return encounter_something(request)
-        save_data(g.dump())
-        try :
-            return redirect(request.path)
-        except :
-            raise Http404("redirect error")
+    g = G_Data.load(load_data())
+    save_data(g.dump())
+    return redirect(request.path)
 
 
 def press_right(request):
-    if (situation['battle'] != 1 and situation['battle'] != 1):
-        g = G_Data.load(load_data())
-        if (g.px < X_MAX):
-            g.px += 1
-        if len(g.left_moviemon) > 0:
-            save_data(g.dump())
-            return encounter_something(request)
-        save_data(g.dump())
-        try :
-            return redirect(request.path)
-        except :
-            raise Http404("redirect error")
+    g = G_Data.load(load_data())
+    save_data(g.dump())
+    return redirect(request.path)
 
 
 def press_down(request):
-    if (situation['battle'] != 1 and situation['battle'] != 1):
-        g = G_Data.load(load_data())
-        if (g.py < Y_MAX):
-            g.py += 1
-        if len(g.left_moviemon) > 0:
-            save_data(g.dump())
-            return encounter_something(request)
-        save_data(g.dump())
-        try :
-            return redirect(request.path)
-        except :
-            raise Http404("redirect error")
+    g = G_Data.load(load_data())
+    save_data(g.dump())
+    return redirect(request.path)
 
 
 def press_A(request):
-    if (situation['battle'] == 1 or situation['battle'] == 1):
-        print("A")
-    try :
-        return redirect(request.path)
-    except :
-        raise Http404("redirect error")
+    g = G_Data.load(load_data())
+    context = {
+                'ch_a': "17px",
+                'ball_total': g.movieballCount,
+                'Power': "Su--per"
+            }
+    if situation['cap'] == 0:
+        if situationmanu['a'] == 0:
+            situationmanu['a'] = 1
+            if situation['encount'] == 1:
+                pick = get_one_mon()
+                id = list(g.left_moviemon[pick])[0]
+                return redirect('battle/' + id)
+            else:
+                return render(request, 'pages/Obtain.html', context)
+    print("A")
+    situationmanu['a'] = 0
+    if situation['cap'] == 1:
+        return render(request, 'pages/Capture.html', context)
+    return redirect('Worldmap_page')
 
 
 def press_B(request):
-    if (situation['battle'] == 1 or situation['battle'] == 1):
-        print("B")
-    try :
-        return redirect(request.path)
-    except :
-        raise Http404("redirect error")
+    if situation['cap'] == 1:
+        context = {
+                'Power': "Su--per"
+            }
+        if situation['recap'] == 0:
+            situation['recap'] = 1
+            return render(request, 'pages/Capture.html', context)
+        else:
+            situation['recap'] = 0
+            situation['cap'] = 0
+            return redirect('Worldmap_page')
+    print("B")
+    return redirect(request.path)
 
 
 def press_Start(request):
     print("Start")
     try :
-        return redirect('Option')
+        return redirect(request.path)
     except :
         raise Http404("redirect error")
 
 
 def press_Select(request):
+    print("Select")
     try :
-        return redirect('Moviedex')
+        return redirect(request.path)
     except :
         raise Http404("redirect error")
 
@@ -169,10 +144,7 @@ def get_id(request):
         return press_Start(request)
     elif id == "Select":
         return press_Select(request)
-    try :
-        return redirect(request.path)
-    except :
-        raise Http404("redirect error")
+    return redirect(request.path)
 
 
 def Titlescreen(request):
@@ -181,10 +153,10 @@ def Titlescreen(request):
         return get_id(request)
     return render(request, 'pages/Titlescreen.html')
 
+
 @loadSession_middleware
 def Worldmap(request):
     g = G_Data.load(load_data())
-    print("[",g,"]")
     id = request.GET.get('key', None)
     if id is not None:
         return get_id(request)
@@ -213,6 +185,45 @@ def Detail(request):
         return get_id(request)
     return render(request, 'pages/Moviedex.html')
 
+@loadSession_middleware
+def Situation_obt(request):
+    situation['cap'] = 0
+    g = G_Data.load(load_data())
+    id = request.GET.get('key', None)
+    if id is not None:
+        return get_id(request)
+    context = {
+        'ball_total': g.movieballCount
+    }
+    return render(request, 'pages/Obtain.html', context)
+
+@loadSession_middleware
+def Situation_cap(request):
+    situation['cap'] = 1
+    g = G_Data.load(load_data())
+    id = request.GET.get('key', None)
+    if id is not None:
+        return get_id(request)
+    context = {
+        'power': "S--uper"
+    }
+    situationmanu['a'] = 0
+    return render(request, 'pages/Capture.html', context)
+
+@loadSession_middleware
+def Situation_enc(request):
+    situation['encount'] = 1
+    situation['cap'] = 0
+    g = G_Data.load(load_data())
+    id = request.GET.get('key', None)
+    if id is not None:
+        return get_id(request)
+    context = {
+        'power': "S--uper"
+    }
+    situationmanu['a'] = 0
+    return render(request, 'pages/Encount.html', context)
+
 
 def Option(request):
     id = request.GET.get('key', None)
@@ -233,5 +244,3 @@ def Load(request):
     if id is not None:
         return get_id(request)
     return render(request, 'pages/options/load_game.html')
-
-  

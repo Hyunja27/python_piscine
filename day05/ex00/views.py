@@ -14,7 +14,7 @@ def init(request: HttpRequest):
             port=settings.DATABASES['default']['PORT'],
         )
         SQL_QUERY = """
-        CREATE TABLE ex00_movie(
+        CREATE TABLE ex00_movies(
             title VARCHAR(64) UNIQUE NOT NULL,
             episode_nb INTEGER PRIMARY KEY,
             opening_crawl TEXT,

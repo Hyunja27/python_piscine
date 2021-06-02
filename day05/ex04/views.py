@@ -1,8 +1,9 @@
 from collections import defaultdict
 from django.conf import settings
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render, redirect
 import psycopg2
+from django.shortcuts import render, redirect
+from django import forms
 
 
 def init(request: HttpRequest):
@@ -15,7 +16,7 @@ def init(request: HttpRequest):
             port=settings.DATABASES['default']['PORT'],
         )
         SQL_QUERY = """
-        CREATE TABLE ex02_movies(
+        CREATE TABLE ex04_movies(
             title VARCHAR(64) UNIQUE NOT NULL,
             episode_nb INTEGER PRIMARY KEY,
             opening_crawl TEXT,
@@ -23,8 +24,9 @@ def init(request: HttpRequest):
             director VARCHAR(32) NOT NULL,
             release_date DATE NOT NULL
         );
-        COMMIT
+        COMMIT;
         """
+
         with conn.cursor() as curs:
             curs.execute(SQL_QUERY)
     except Exception as e:
@@ -93,7 +95,7 @@ def populate(request):
             port=settings.DATABASES['default']['PORT'],
         )
         SQL_QUERY = """
-        INSERT INTO ex02_movies(
+        INSERT INTO ex04_movies(
             episode_nb, 
             title, 
             director, 
@@ -107,7 +109,12 @@ def populate(request):
         """
         with conn.cursor() as curs:
             for movie in movies:
-                curs.execute(SQL_QUERY, [movie['episode_nb'], movie['title'], movie['director'], movie['producer'], movie['release_date'] ] )
+                curs.execute(SQL_QUERY, [
+                    movie['episode_nb'],
+                    movie['title'],
+                    movie['director'],
+                    movie['producer'],
+                    movie['release_date']])
     except Exception as e:
         return HttpResponse(e)
     return HttpResponse("OK")
@@ -123,11 +130,52 @@ def display(request):
             port=settings.DATABASES['default']['PORT'],
         )
         SQL_QUERY = """
-        SELECT * FROM ex02_movies;
+        SELECT * FROM ex04_movies;
         """
         with conn.cursor() as curs:
             curs.execute(SQL_QUERY)
             tuple_list = curs.fetchall()
     except Exception("No data available") as e:
         return HttpResponse(e)
-    return render(request, 'base1.html', { 'movies' : tuple_list})
+    return render(request, 'base_04.html', {'movies': tuple_list})
+
+
+class EraseForm(forms.Form):
+    titles = forms.ChoiceField(choices=(), required=True)
+
+    def __init__(self, choices=(), *args, **kwargs):
+        super(EraseForm, self).__init__(*args, **kwargs)
+        self.fields['titles'].choices = choices
+
+
+def remove(request: HttpRequest):
+    try:
+        conn = psycopg2.connect(
+            dbname=settings.DATABASES['default']['NAME'],
+            user=settings.DATABASES['default']['USER'],
+            password=settings.DATABASES['default']['PASSWORD'],
+            host=settings.DATABASES['default']['HOST'],
+            port=settings.DATABASES['default']['PORT'],
+        )
+        SQL_QUERY = """
+        SELECT * FROM ex04_movies;
+        """
+        curs = conn.cursor()
+        curs.execute(SQL_QUERY)
+        movies = curs.fetchall()
+        choices = ((movie[1], movie[0]) for movie in movies)
+        if request.method == 'POST':
+            data = EraseForm(choices, request.POST)
+            if data.is_valid():
+                SQL_QUERY = """
+                DELETE FROM ex04_movies WHERE episode_nb = %s;
+                """
+                curs.execute(SQL_QUERY, [data.cleaned_data['titles']])
+                conn.commit()
+            curs.close()
+            return redirect(request.path)
+        curs.close()
+        return render(request, 'remove_04.html', {'choice_field': EraseForm(choices)})
+    except Exception as e:
+        print(e)
+        return HttpResponse("No data available")

@@ -149,9 +149,9 @@ def views_Load_2(request):
 
 def get_id(request, index):
     id = request.GET.get('key', None)
-    if id == "left":
+    if id == "up":
         index.press_left()
-    elif id == "right":
+    elif id == "down":
         index.press_right()
     elif id == "A":
         t = index.press_A()

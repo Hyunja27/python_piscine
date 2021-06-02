@@ -3,7 +3,7 @@ from os import environ
 OMDB_API_KEY = '2798667a' if environ.get(
     'OMDB_API_KEY') is None else environ.get('OMDB_API_KEY')
 
-GRID_SIZE = (10, 10)
+GRID_SIZE = (15, 15)
 PLAYER_INIT_POSITION = (0, 0)
 
 START_BALL_AMOUNT = 15
@@ -60,4 +60,30 @@ IMDB_LIST = [
     "tt1415872",
     "tt7904362",
     "tt1788453",
+]
+
+IMDB_LIST_KOR = [
+    "tt0272425",
+    "tt0289181",
+    "tt0327169",
+    "tt0364569",
+    "tt0406661",
+    "tt0428870",
+    "tt1606283",
+    "tt2972482",
+    "tt2990738",
+    "tt4682562",
+    "tt4844288",
+    "tt5066556",
+    "tt5068856",
+    "tt5215952",
+    "tt6890582",
+    "tt6904062",
+    "tt7046826",
+    "tt7057496",
+    "tt8290698",
+    "tt8850222",
+    "tt10530286",
+    "tt11358398",
+    "tt11777040",
 ]

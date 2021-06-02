@@ -14,6 +14,8 @@ def views_detail(request, imdbID):
     for i in g.captured_list:
         for key, values in i.items() :
             dict_cap_mon[key] = values
+    if dict_cap_mon.get(imdbID, None) is None:
+        raise Http404("invaild moviemon")
 
     data = dict_cap_mon[imdbID]
     choice = movie_inf(imdbID=imdbID, Title=data["title"], Poster=data["poster"], Director=data["director"], Year=data["year"], imdbRating=data["rating"], Plot=data["plot"], Actors=data["actors"])

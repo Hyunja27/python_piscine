@@ -116,10 +116,10 @@ def views_Save(request):
 
 def get_id(request, index):
     id = request.GET.get('key', None)
-    if id == "left":
+    if id == "up":
         print("left")
         index.press_left()
-    elif id == "right":
+    elif id == "down":
         print("right")
         index.press_right()
     elif id == "A":

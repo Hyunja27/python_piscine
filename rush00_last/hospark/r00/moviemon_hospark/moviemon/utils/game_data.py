@@ -6,6 +6,9 @@ import pickle
 import random
 import os
 
+def toss_coin():
+    return random.randint(0,1)
+
 def load_data(path:str="session.bin"):
     try:
         f = open(path, "rb")
@@ -88,7 +91,14 @@ class G_Data():
     def load_default_settings():
         result = G_Data()
         URL = "http://www.omdbapi.com/"
-        for id in basic_data.IMDB_LIST:
+
+        temp_list = []
+        if toss_coin():
+            temp_list = basic_data.IMDB_LIST
+        else:
+            temp_list = basic_data.IMDB_LIST_KOR
+
+        for id in temp_list:
             params = {
                 "apikey": basic_data.OMDB_API_KEY,
                 "i": id

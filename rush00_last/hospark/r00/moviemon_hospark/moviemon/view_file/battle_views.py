@@ -36,6 +36,8 @@ def get_mon_info(id):
     for i in g.left_moviemon:
         for key, values in i.items() :
             dict_mon[key] = values
+    if dict_mon.get(id, None) is None:
+        raise Http404("invaild moviemon")
     mon_info['rating'] = dict_mon[id]['rating']
     mon_info['title'] = dict_mon[id]['title']
     mon_info['year'] = dict_mon[id]['year']
@@ -171,7 +173,7 @@ def press_B(request, id):
 def press_Start(request):
     print("Start")
     try :
-        return redirect('Option')
+        return redirect(request.path)
     except :
         raise Http404("redirect error")
 
@@ -179,7 +181,7 @@ def press_Start(request):
 def press_Select(request):
     print("Select")
     try :
-        return redirect('Moviedex')
+        return redirect(request.path)
     except :
         raise Http404("redirect error")
 
