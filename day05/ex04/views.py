@@ -108,6 +108,7 @@ def populate(request):
             %s, %s, %s, %s, %s
         );
         """
+        result = []
         with conn.cursor() as curs:
             for movie in movies:
                 try:
@@ -118,11 +119,13 @@ def populate(request):
                         movie['producer'],
                         movie['release_date']])
                     conn.commit()
-                except psycopg2.DatabaseError:
-                    conn.rollback()                                   
+                    result.append("OK")
+                except psycopg2.DatabaseError as e:
+                    conn.rollback()
+                    result.append(e)                                   
     except Exception as e:
         return HttpResponse("No data available") 
-    return HttpResponse("OK")
+    return HttpResponse("<br />".join([str(i) for i in result]))
 
 
 def display(request):

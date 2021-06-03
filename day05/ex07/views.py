@@ -93,11 +93,10 @@ def update(request: HttpRequest):
         if request.method == 'POST':
             data = TextChoose(choices, request.POST)
             if data.is_valid():
-                tmp = Movies.objects.get(
-                    title=data.cleaned_data['titles'])
-                tmp.opening_crawl = data.cleaned_data['opening_crawl']
+                tmp = Movies.objects.get(title=data.cleaned_data['titles'])
+                tmp.opening_crawl = data.cleaned_data['update']
                 tmp.save()
-                return redirect(request.path)
+            return redirect(request.path)
         return render(request, 'remove_05.html', {'choice_field': TextChoose(choices)})
     except Exception as e:
         print(e)

@@ -129,7 +129,8 @@ def populate(request):
                         movie['release_date']])
                     result.append("OK")
                     conn.commit()
-                except psycopg2.DatabaseError:
+                except psycopg2.DatabaseError as e:
+                    result.append(e)
                     conn.rollback()                                   
     except Exception as e:
         return HttpResponse("No data available") 

@@ -104,16 +104,19 @@ def populate(request):
             %s, %s, %s, %s, %s
         );
         """
+        result = []
         with conn.cursor() as curs:
             for movie in movies:
                 try:
                     curs.execute(SQL_QUERY, [movie['episode_nb'], movie['title'], movie['director'], movie['producer'], movie['release_date'] ] )
-                    conn.commit()                
+                    conn.commit()
+                    result.append("OK")              
                 except psycopg2.DatabaseError as e:
+                    result.append(e)
                     conn.rollback()
     except Exception as e:
         return HttpResponse("No data available") 
-    return HttpResponse("OK")
+    return HttpResponse("<br />".join([str(i) for i in result]))
 
 
 def display(request):
