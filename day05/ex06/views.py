@@ -157,8 +157,8 @@ def display(request):
     return render(request, 'base_06.html', {'movies': tuple_list})
 
 class TextChoose(forms.Form):
-    update = forms.CharField(required=True)
     titles = forms.ChoiceField(choices=(), required=True)
+    update = forms.CharField(required=True)
     def __init__(self, choices=(), *args, **kwargs):
         super(TextChoose, self).__init__(*args, **kwargs)
         self.fields['titles'].choices = choices

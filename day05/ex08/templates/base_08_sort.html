@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Display</title>
+  <style>
+    @font-face {
+      font-family: 'PK';
+      font-style: normal;
+      src: url('../static/fonts/PKMN_RBYGSC.ttf') format("truetype");
+    }
+    td,th,td {
+      font-family: 'PK';
+      border-bottom: 1px solid;
+      padding: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <table>
+    <tbody>
+      <tr style="background-color: rgba(175, 182, 37, 0.824)">
+        <th>name</th>
+        <th>homeworld</th>
+        <th>climate</th>
+      </tr>
+      {% for n in peoples %}
+      <tr>
+        <td>{{ n.0 }}</td>
+        <td>{{ n.1 }}</td>
+        <td>{{ n.2 }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>
