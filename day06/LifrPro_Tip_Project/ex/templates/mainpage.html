@@ -1,0 +1,16 @@
+{% extends './base.html' %}
+{% load static %}
+{% block title %}
+    Life Pro's Tip is {{ request.session.anonymous }}! | by spark.
+{% endblock %}
+
+{% block style %}
+{% endblock %}
+
+{% block content %}
+  {% if Text != None %}
+    <p style="font-size: 50px; color: ivory;">hmmm.. <br> {{Text}}! <br/> before, dink some {{ request.session.anonymous }} first.. <br> Enjoy!</p>
+  {% else %}
+    <p style="font-size: 50px; color: ivory;">Hello! Your Drink is <br >{{ request.session.anonymous }} ! <br> Enjoy!</p>
+  {% endif %}
+{% endblock %}

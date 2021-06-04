@@ -1,0 +1,62 @@
+{% load static %} 
+{% load bootstrap3 %}
+<nav class="navbar navbar-default">
+  <div class="container">
+    <div class="container-fluid">
+      <div class="navbar-header">
+      {% if user.is_authenticated %}
+        <a class="navbar-brand" href="{% url 'index' %}">Life Pro Tips <br/> for Nice {{user.username}}</a>
+      {% else %}
+        <a class="navbar-brand" href="{% url 'index' %}">Hello! <br/> Drink some "{{user.username}}" ?</a>
+      {% endif %}
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#">Link</a></li>
+          <li class="dropdown">
+            <a
+              href="#"
+              class="dropdown-toggle"
+              data-toggle="dropdown"
+              role="button"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+            {% if user.is_authenticated %}
+              Hello my  {{ user.username }}!
+            {% else %}
+              {{ user.username }}...<br/> So Good Drink...
+            {% endif %}
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              {% if user.is_authenticated %}
+              <li><a href="{% url 'logout' %}">Logout</a></li>
+              {% else %}
+              <li><a href="{% url 'register' %}">Register</a></li>
+              <li><a href="{% url 'login' %}">Login</a></li>
+              {% endif %}
+              <li role="separator" class="divider"></li>
+              <li><a href="#">Separated link</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+  </div>
+</nav>
+{% comment %} 
+<nav class="navbar navbar-default navbar-fixed-bottom">
+  <table>
+    <td>
+      <a href="http://localhost:8000/"> {{ request.session.anonymous }} is<br/> <p style="font-size:40px">Life Pro Tip!</p></a>
+    </td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><a href="http://localhost:8000/register"> <p style="font-size:30px">Want <br/> Registration?</p></a></td>
+  </table>
+</nav> {% endcomment %}
