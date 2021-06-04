@@ -8,7 +8,7 @@ class AnonymousSessionMiddleware(MiddlewareMixin):
         if request.user.is_authenticated:
             return
 
-        init_time = request.session.setdefault(
+        init_time = request.session.get(
             s.SESSSION_TIME_KEY, time.time())
 
         session_is_expired = time.time() - init_time > s.EXFIRE_TIME
@@ -17,9 +17,10 @@ class AnonymousSessionMiddleware(MiddlewareMixin):
             request.session.flush()
 
         request.session.setdefault('anonymous', random.choice(s.ID_LIST))
+        request.session.setdefault(
+                    s.SESSSION_TIME_KEY, time.time())
 
         request.user.username = request.session.get('anonymous')
-
 
 
         # if request.user.is_authenticated:
