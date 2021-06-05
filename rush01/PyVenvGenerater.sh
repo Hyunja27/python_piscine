@@ -14,7 +14,7 @@ TEXT="
 # **************************************************************************** #
 "
 
-DJ_PATH_NAME="./day07_venv"
+DJ_PATH_NAME="./rush01_venv"
 PY="/usr/bin/python3"
 LOG_FILE="log_file.log"
 
@@ -27,7 +27,7 @@ echo "$TEXT"
 python -m pip --version
 
 pip install --upgrade pip | tee -a $LOG_FILE
-python -m pip install --force-reinstall -r requirement.txt | tee -a $LOG_FILE
+python -m pip install --force-reinstall -r requirements.txt | tee -a $LOG_FILE
 source $DJ_PATH_NAME/bin/activate
 
 
