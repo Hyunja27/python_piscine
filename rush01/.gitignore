@@ -306,3 +306,5 @@ db.sqlite3
 # PYTHON VENV
 day05_venv
 day06_venv
+rush01_venv
+log_file.log

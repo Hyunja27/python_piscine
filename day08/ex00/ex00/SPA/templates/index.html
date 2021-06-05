@@ -1,0 +1,27 @@
+{% load bootstrap3 %}
+{% load static %}
+<style>
+   @font-face {
+      font-family: 'PK';
+      font-style: normal;
+      src: url('../static/fonts/PKMN_RBYGSC.ttf') format("truetype");
+    }
+    h1,h2,h3,h4,h5,p,table{
+      font-family: 'PK';
+    }
+</style>
+Hello! {{ user }}. Image Loader | by spark.
+<div>
+  <h3 style="display: inline-block; margin-left: 10px; color: rgb(125, 125, 125)"></h3>
+  {% for image in object_list %}
+  <div>
+    <h1>{{ image.title }}</h1>
+    <image src="{{ image.image.url }}"/>
+  </div>
+  {% endfor %}
+  <form action="" method="post" class="form" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons submit='OK' reset="Cancel" %}{% endbuttons %}
+  </form>
+</div>

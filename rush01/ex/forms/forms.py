@@ -1,8 +1,11 @@
 
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 from django import forms
+from django.db import models
 from django.forms.widgets import HiddenInput
+from ..models import Profile
+from django.contrib.auth import get_user_model
 
 class Loginform(forms.Form):
     id = forms.CharField(required=True)
@@ -33,6 +36,37 @@ class VoteForm(forms.Form):
         super(VoteForm, self).__init__(auto_id='%s', *args, **kwargs)
         if id:
             self.fields['id'].initial = id
+
+
+class CustomUserChangeForm(UserChangeForm):
+    password = None
+    class Meta:
+        model = get_user_model()
+        fields = ['email', 'first_name', 'last_name', 'is_staff']
+
+    
+class ProfileForm(forms.ModelForm):
+    nickname = forms.CharField(label="nickname", required=True)
+    description = forms.CharField(label="Introduce your Self!", required=False, widget=forms.Textarea())
+    image = forms.ImageField(label="pic..smallsize please..", required=False)
+       # 위의 내용을 정의하지 않아도 상관없지만, 화면에 출력될 때 label이 영문으로 출력되는 것이 싫어서 수정한 것이다..
+
+    def __init__(self,nickname, description, image  ,*args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self.fields['nickname'].initial = nickname
+        self.fields['description'].initial = description
+        self.fields['image'].initial = image
+
+    class Meta:
+        model = Profile
+        fields = ['nickname', 'description', 'image']
+
+
+
+
+
+
+
 
 # class RegisterForm(forms.Form):
 #     id = forms.CharField(min_length=6, max_length=32, required=True)

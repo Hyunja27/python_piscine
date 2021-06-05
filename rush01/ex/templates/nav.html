@@ -5,15 +5,17 @@
     <div class="container-fluid">
       <div class="navbar-header">
       {% if user.is_authenticated %}
-        <a class="navbar-brand" href="{% url 'index' %}">Life Pro Tips <br/> for Nice {{user.username}}</a>
+        <a class="navbar-brand" href="{% url 'index' %}">Awesome Cadet : {{user.username}}</a>
       {% else %}
-        <a class="navbar-brand" href="{% url 'index' %}">Hello! <br/> Drink some "{{user.username}}" ?</a>
+        <a class="navbar-brand" href="{% url 'login' %}">Intranet For </br>Awesome Cadet!</a>
       {% endif %}
       </div>
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#">Link</a></li>
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'profile' %}"> edit Profile </a></li>
+          {% endif %}
           <li class="dropdown">
             <a
               href="#"
@@ -24,9 +26,9 @@
               aria-expanded="false"
             >
             {% if user.is_authenticated %}
-              Hello my  {{ user.username }}!
+              Hello! Awesome </br> {{ user.username }}!
             {% else %}
-              {{ user.username }}...<br/> So Good Drink...
+              No Log In? </br>Drinks Some {{ user.username }}...!
             {% endif %}
               <span class="caret"></span>
             </a>

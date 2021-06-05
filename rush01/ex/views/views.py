@@ -1,9 +1,9 @@
 from typing import Any
+from django.db.utils import DatabaseError
 from django.http.request import HttpRequest
 from django.http.response import HttpResponse
 from django.shortcuts import redirect
-from ..forms import RegisterForm
-from django.views.generic import FormView
+from django.views.generic import FormView, DetailView
 from django.contrib.auth import login
 from django.contrib import messages
 from django.views import View
@@ -12,8 +12,11 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django import db
 from django.shortcuts import render
-from ..forms import TipForm, DeleteTipForm, VoteForm
-from ..models import TipModel
+from rush01 import settings
+from django.conf.urls.static import static
+
+from ex.forms import TipForm, DeleteTipForm, VoteForm, CustomUserChangeForm, ProfileForm, RegisterForm
+from ex.models import TipModel, Profile
 from django.urls import reverse_lazy
 
 class Index(View):
@@ -48,7 +51,7 @@ class Logout(LoginRequiredMixin, View):
     def get(self, request):
         logout(request)
         messages.info(request, "You have successfully logged out.")
-        return redirect('index')
+        return redirect('login')
 
 
 class Show_Page(View):
@@ -178,3 +181,36 @@ class Tip(LoginRequiredMixin, View):
             return self.__error_msg("vote", "db error")
         messages.success(request, 'Dood Voted!')
         return redirect('index')
+
+
+def Profile_Edit(request):
+    if request.method == 'POST':
+        user_change_form = CustomUserChangeForm(request.POST, instance=request.user)
+        profile_form = ProfileForm("12345", "6789", "image_hahehihoho", request.POST, request.FILES, instance=request.user.profile)
+        if user_change_form.is_valid() and profile_form.is_valid():
+            user = user_change_form.save()
+            profile_form.save()
+            return redirect('index')
+        return redirect('profile')
+    else:
+        user_change_form = CustomUserChangeForm(instance=request.user)
+        # 새롭게 추가하는 것이 아니라 수정하는 것이기 때문에
+        # 기존의 정보를 가져오기 위해 instance를 지정해야 한다.
+        profile, create = Profile.objects.get_or_create(user=request.user)
+        # Profile 모델은 User 모델과 1:1 매칭이 되어있지만
+        # User 모델에 새로운 인스턴스가 생성된다고 해서 그에 매칭되는 Profile 인스턴스가 생성되는 것은 아니기 때문에
+        # 매칭되는 Profile 인스턴스가 있다면 그것을 가져오고, 아니면 새로 생성하도록 한다.
+        profile_form = ProfileForm("12345", "6789", "image_hahehihoho",instance=profile)
+        return render(request, 'profile.html', {
+            'user_change_form': user_change_form,
+            'profile_form': profile_form
+        })
+
+class Detail_View(DetailView):
+    template_name = 'detail.html'
+    model = TipForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["content"] = TipForm
+        return context

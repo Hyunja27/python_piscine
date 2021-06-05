@@ -63,3 +63,16 @@ class TipModel(models.Model):
             down_vote.save()
             self.down_votes.add(down_vote)
             self.save()
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    # User모델과 Profile을 1:1로 연결
+    description = models.TextField(blank=True)
+    nickname = models.CharField(max_length=40, blank=True)
+    image = models.ImageField(blank=True)
+    # email = 
+    # first_name = 
+    # last_name = 
+
+
