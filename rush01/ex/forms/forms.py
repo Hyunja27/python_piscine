@@ -42,7 +42,7 @@ class CustomUserChangeForm(UserChangeForm):
     password = None
     class Meta:
         model = get_user_model()
-        fields = ['email', 'first_name', 'last_name', 'is_staff']
+        fields = ['email', 'first_name', 'last_name']
 
     
 class ProfileForm(forms.ModelForm):
@@ -56,7 +56,6 @@ class ProfileForm(forms.ModelForm):
         self.fields['nickname'].initial = nickname
         self.fields['description'].initial = description
         self.fields['image'].initial = image
-
     class Meta:
         model = Profile
         fields = ['nickname', 'description', 'image']

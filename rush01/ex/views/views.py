@@ -101,7 +101,7 @@ class Login(FormView):
         user = authenticate(self.request, username=username, password=password)
         if user is None:
             messages.error(self.request, "Invalid username or password.")
-            return
+            return super().form_invalid(form)
         login(self.request, user)
         messages.info(self.request, f"You are now logged in as {username}.")
         return super().form_valid(form)
@@ -214,3 +214,27 @@ class Detail_View(DetailView):
         context = super().get_context_data(**kwargs)
         context["content"] = TipForm
         return context
+
+def Admin_edit(request):
+    return redirect('admin')
+    if request.method == 'POST':
+        user_change_form = CustomUserChangeForm(request.POST, instance=request.user)
+        profile_form = ProfileForm("12345", "6789", "image_hahehihoho", request.POST, request.FILES, instance=request.user.profile)
+        if user_change_form.is_valid() and profile_form.is_valid():
+            user = user_change_form.save()
+            profile_form.save()
+            return redirect('index')
+        return redirect('profile')
+    else:
+        user_change_form = CustomUserChangeForm(instance=request.user)
+        # 새롭게 추가하는 것이 아니라 수정하는 것이기 때문에
+        # 기존의 정보를 가져오기 위해 instance를 지정해야 한다.
+        profile, create = Profile.objects.get_or_create(user=request.user)
+        # Profile 모델은 User 모델과 1:1 매칭이 되어있지만
+        # User 모델에 새로운 인스턴스가 생성된다고 해서 그에 매칭되는 Profile 인스턴스가 생성되는 것은 아니기 때문에
+        # 매칭되는 Profile 인스턴스가 있다면 그것을 가져오고, 아니면 새로 생성하도록 한다.
+        profile_form = ProfileForm("12345", "6789", "image_hahehihoho",instance=profile)
+        return render(request, 'profile.html', {
+            'user_change_form': user_change_form,
+            'profile_form': profile_form
+        })

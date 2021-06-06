@@ -13,6 +13,7 @@ urlpatterns = [
     path('logout/', views.Logout.as_view(), name='logout'),
     path('tip/', views.Tip.as_view(), name='tip'),
     path('profile/', views.Profile_Edit, name='profile'),
+    path('admin/', views.Admin_edit, name='admin'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
