@@ -1,0 +1,75 @@
+{% extends 'base.html' %} {% load bootstrap3 %} {% block title %}{{ object.title
+}} | {% endblock title %} {% block content %}
+<div>
+  <h4 style="display: inline-block;">[{{ object.title }}]&nbsp;&nbsp;&nbsp;  </h4>
+  <h5 style="display: inline-block;">{{ object.author }}
+  </h5>
+  <h6 style="display: inline-block;">- {{ object.created }}</h6>
+  {% if user.is_authenticated %}
+  {% endif %}
+  <div class="lead">
+    <div>{{ object.content }}</div>
+    {% comment %} {% for c in comments%}
+    {% endfor %} {% endcomment %}
+  </div>
+</div>
+
+
+
+<form method="post" action="{% url 'create_comment' comments.id %}">
+  {%csrf_token%}
+  {{comment_form}}
+  <input type="submit">
+</form>
+{% for i in object.comment_set.all %}
+
+
+
+
+
+{% comment %} <p style="font-size:10px">->{{i}} &nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;
+  [{{i.created_at}}__by__{{i.author}}]</br></p> {% endcomment %}
+
+
+<div class="media">
+  <p class="pull-right"><small> {{i.created_at}}</small></p>
+  <a class="media-left" href="#">
+    <img src={{i.author.profile.image.url}} height=50>
+  </a>
+  <div class="media-body">
+    <h5 class="media-heading user_name">{{i.author}}</h5>
+    {{i.body}}
+    <p><small><a href="">Like</a> - <a href="">Share</a></small></p>
+  </div>
+</div>
+
+<form method="post" action="{% url 'create_recomment' comments.id %}">
+    {%csrf_token%}
+    {%for recom_form in recomment_form%}
+        {%if recom_form.label != 'Comment' %}
+        {{recom_form.label}} : {{recom_form}}
+        {%endif%}
+    {%endfor%}
+    <input type="hidden" name="comment" value={{i.id}}>
+    <input type="submit">
+</form>
+{%for recom in i.recomment_set.all%} &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp;↪ &nbsp;{{recom}}  &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;[{{recom.created_at}}__by__{{recom.author}}]</br>
+{%endfor%}
+<hr>
+
+
+
+
+{% comment %} <h6 style="font-size=10px">
+  &nbsp; {{i.created_at}} &nbsp; by &nbsp;&nbsp;{{i.author}}</h6> {% endcomment %}
+
+{% comment %} <form method="post" action="{% url 'create_comment' comments.id %}">
+  {%csrf_token%}
+  {{comment_form}}
+  <input type="submit">
+</form> {% endcomment %}
+
+{% comment %} <h6 style="font-size=10px">{{i.author}}</h6> {% endcomment %}
+{%endfor%}
+{% endblock %}
